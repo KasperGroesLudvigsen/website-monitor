@@ -49,8 +49,8 @@ def main():
     if previous_hash != current_hash:
         print("Change detected.")
         send_email(
-            "Web page changed!",
-            f"The content of {URL} has changed."
+            "Der er nyt om Veksø Syd",
+            f"Indholdet er blevet ændret på denne hjemmeside: {URL}"
         )
         save_current_hash(current_hash)
     else:
