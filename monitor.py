@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 import requests
 
 URL = "https://egedalkommune.dk/demokrati-og-indflydelse/vision-og-politikker/byudvikling-og-planlaegning/andre-planer-og-projekter/forum-veksoe"
-URL = "https://www.example.com/"
 STATE_PATH = "state/last_hash.txt"
 
 def fetch_page_text(url):
