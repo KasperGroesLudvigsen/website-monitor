@@ -3,14 +3,17 @@ name: Monitor Web Page
 on:
   schedule:
     - cron: '0 8,12,18 * * *'  # 8:00, 12:00, 18:00 UTC
-  workflow_dispatch:          # Manual trigger
+  workflow_dispatch:
 
 jobs:
   check-page:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false  # Important: disable default token
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -31,8 +34,10 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git fetch origin main
+          git checkout main
           if [ -n "$(git status --porcelain state/)" ]; then
             git add state/
             git commit -m "Update last hash [skip ci]"
-            git push https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
+            git push https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }} HEAD:main
           fi
